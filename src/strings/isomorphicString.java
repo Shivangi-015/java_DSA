@@ -1,9 +1,39 @@
-//package strings;
-//import java.util.Map;
-////string s and t are isomorphic if char in s maps to char in t and vice versa, only one char maps to the other one, no repetition
-////order of occurence is also followed
-//public class isomorphicString {
-//    public boolean isIsomorphic(String s, String t){
-//        Map<Character,Character> map = new HashMap();
-//    }
-//}
+package strings;
+import java.util.Map;
+import java.util.HashMap;
+//string s and t are isomorphic if char in s maps to char in t and vice versa, only one char maps to the other one, no repetition
+//order of occurence is also followed
+public class isomorphicString {
+    public static boolean isIsomorphic(String s, String t){
+        HashMap<Character,Character> map1 = new HashMap<>();
+        HashMap<Character,Boolean> map2 = new HashMap<>();
+
+        if(s.length() != t.length()){
+            return false;
+        }
+        for(int i=0; i<s.length(); i++){
+            char ch1 = s.charAt(i);
+            char ch2 = t.charAt(i);
+            if(map1.containsKey(ch1)==true){
+                if(map1.get(ch1)!= ch2){
+                    return false;
+                }
+            }
+            else{
+                if(map2.containsKey(ch2) == true){
+                    return false;
+                }
+                else{
+                    map1.put(ch1,ch2);
+                    map2.put(ch2, true);
+                }
+            }
+        }
+        return true;
+    }
+    public static void main(String[] args){
+        String s = "egg";
+        String t = "goo";
+        System.out.println(isIsomorphic(s,t));
+    }
+}
