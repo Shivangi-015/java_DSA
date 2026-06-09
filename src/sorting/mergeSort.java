@@ -1,56 +1,69 @@
 package sorting;
 
 public class mergeSort {
-
-    public static void mergeSort(int[] arr, int start, int end) {
-
-        if(start >= end) {
+    public static void mergesort(int[] arr, int s, int e){
+        if(s>=e){
             return;
         }
+        int mid = s + (e-s)/2;
 
-        int mid = start + (end - start) / 2;
-
-        mergeSort(arr, start, mid);
-        mergeSort(arr, mid + 1, end);
-
-        merge(arr, start, mid, end);
+        mergesort(arr, s, mid); //recursion
+        mergesort(arr, mid+1, e); //recursion
+        merge(arr, s , mid, e);
     }
+    public static void merge(int[] arr, int s, int mid, int e){
+        int n1 = mid - s +1; //length of the left array
+        int n2 = e - mid; //length of right array
+        int k = s;
+        int [] L = new int[n1];
+        int [] R = new int [n2];
+        //filling left array
+        for( int i=0; i<n1; i++){
+            L[i] = arr[k];
+            k++;
+        }
+        //filling right array
+        for(int i=0; i<n2; i++){
+            R[i] = arr[k];
+            k++;
+        }
+        //merge them in arr
+        int i=0 ,j=0;
+        k = s;
 
-    public static void merge(int[] arr, int start, int mid, int end) {
-
-        int[] temp = new int[end - start + 1];
-
-        int i = start;
-        int j = mid + 1;
-        int k = 0;
-
-        while(i <= mid && j <= end) {
-
-            if(arr[i] <= arr[j]) {
-                temp[k++] = arr[i++];
-            } else {
-                temp[k++] = arr[j++];
+        while(i<n1 && j<n2){
+            if(L[i] < R[j]){
+                arr[k] = L[i];
+                k++;
+                i++;
+            }
+            else{
+                arr[k] = R[j];
+                k++;
+                j++;
             }
         }
-
-        while(i <= mid) {
-            temp[k++] = arr[i++];
+        //if right array is exhausted but left array still remains
+        while(i<n1){
+            arr[k] = L[i];
+            k++;
+            i++;
         }
-
-        while(j <= end) {
-            temp[k++] = arr[j++];
-        }
-
-        for(int p = 0; p < temp.length; p++) {
-            arr[start + p] = temp[p];
+        //if left exhuasted but right remains
+        while(j<n2){
+            arr[k] = R[j];
+            k++;
+            j++;
         }
     }
+
+
 
     public static void main(String[] args) {
 
         int nums[] = {9, 4, 6, 1, 2, 0, 5};
 
-        mergeSort(nums, 0, nums.length - 1);
+        mergesort(nums, 0, nums.length - 1);
 
         for(int i = 0; i < nums.length; i++) {
             System.out.print(nums[i] + " ");

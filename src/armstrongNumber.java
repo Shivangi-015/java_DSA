@@ -7,7 +7,7 @@ public class armstrongNumber {
         int n = sc.nextInt();
         int dup = n;
         double sum =0;
-        int N =  String.valueOf(n).length();
+        int N =  String.valueOf(n).length(); //converts int to string and calculates its length
         while (n>0){
             int lastdigit = n % 10;
             sum = sum + Math.pow(lastdigit, N );
