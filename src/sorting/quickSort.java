@@ -1,5 +1,5 @@
 package sorting;
-
+//select a pivot element usually the end one, partitione the array around it and then recursion
 public class quickSort {
     public static void swap(int[] arr, int a, int b){
         int temp = arr[a];
