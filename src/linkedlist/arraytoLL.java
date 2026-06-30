@@ -121,12 +121,30 @@ public class arraytoLL {
         }
         int count = 0;
         Node temp = head;
-        while(temp.next != null){
+        while(temp != null){
             count++;
             if(count == k-1){
                 Node newN = new Node(element);
                 newN.next = temp.next;
                 temp.next = newN;
+                break;
+            }
+            temp = temp.next;
+        }
+        return head;
+    }
+    public static Node insertBeforeValue(Node head, int element, int value){
+        if(head == null){
+            return head;
+        }
+        if(head.data == value){
+            return new Node(element, head);
+        }
+        Node temp = head;
+        while(temp.next != null){
+            if(temp.next.data == value){
+                Node x = new Node(element, temp.next);
+                temp.next = x;
                 break;
             }
             temp = temp.next;
@@ -148,7 +166,8 @@ public class arraytoLL {
         //head = deleteEl(head, 11);
        // head = new Node(100, head); inserting at head
         //head = insertionAtTail(head, 21);
-        head = insertionAtPositionK(head, 44, 4);
+        //head = insertionAtPositionK(head, 44, 5);
+        head = insertBeforeValue(head, 21, 11);
         while(head != null){
             System.out.print(head.data + " ");
             head = head.next;
