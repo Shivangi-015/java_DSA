@@ -102,10 +102,69 @@ public class doublyLinkedList {
         }
         return head;
     }
+    static void deleteNode(Node temp){
+        Node back = temp.prev;
+        Node front = temp.next;
+        if(front == null){
+            back.next = null;
+            temp.prev = null;
+            return;
+        }
+        back.next = front;
+        front.prev = back;
+
+        temp.next = temp.prev = null;
+    }
+
+    //insertion in DLL
+    static Node insertbeforeHead(Node head, int value){
+        Node newHead = new Node(value, head, null);
+        head.prev = newHead;
+        return newHead;
+    }
+
+    static Node insertBeforeTail(Node head, int value){
+        Node tail = head;
+        while(tail.next != null){
+            tail = tail.next;
+        }
+        Node back = tail.prev;
+
+        Node newNode = new Node(value, tail, back);
+        back.next = newNode;
+        tail.prev = newNode;
+        return head;
+    }
+    static Node insertBeforeKthelement(Node head,int k, int value){
+        if(k==1){
+            return insertbeforeHead(head, value);
+        }
+        Node temp = head;
+        int count = 0;
+        while(temp!=null){
+            count++;
+            if(count == k){
+                break;
+            }
+            temp = temp.next;
+        }
+        Node back = temp.prev;
+        Node newNode = new Node(value, temp, back);
+        back.next = newNode;
+        temp.prev = newNode;
+        return head;
+    }
+    static void insertBeforeNode(Node node, int value){
+        Node back = node.prev;
+        Node newNode = new Node(value, node, back);
+        back.next = newNode;
+        node.prev = newNode;
+    }
+
     public static void main(String[] args){
         int arr[] = {10,20,30,40,50};
         Node head = arraytoDLL(arr);
-        head = deleteKthElement(head, 3);
+        insertBeforeNode(head.next.next , 500);
         print(head);
     }
 }
